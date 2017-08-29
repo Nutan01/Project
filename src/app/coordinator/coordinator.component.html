@@ -1,0 +1,46 @@
+
+    <!--class="container col-sm-4"-->
+  <!-- We are going to get an array of deals stored in the publicDeals variable. We'll loop over that variable here using the ngFor directive -->
+ 
+<nav class="navbar navbar-default ">
+  <div class="row">
+          <!--username-->
+          <div class="col-sm-10"><h3><i>Welcome {{currentUser.name}} !</i></h3>
+          </div>
+                   <!--logout-->
+          <div class="col-sm-2">
+          <div *ngIf="showingLogOut"><a [routerLink]="['/login']" (click)="hide()" style="color:black" id="logoutC" name="logoutC"><span class="glyphicon glyphicon-log-out"></span>Logout</a> </div>
+          </div>
+      </div>
+</nav>
+
+
+    <div class="col-sm-12"><h3 class="text-center" id="crole"><u>Role - {{currentUser.role}}</u></h3></div>
+  <br>
+  <br>
+  <div class="col-sm-12"><h3 class="text-center"><u>Assigned Challenges</u></h3></div>
+  
+   <br>
+  <br>
+
+  <div >
+
+  <div  (click)="selectItem(ind)" [ngClass]="{'menu_item':true, 'menu_hoverItem': (selectedIndex !== ind), 'menu_selectedItem': (selectedIndex === ind) }" *ngFor="let challenge of challenges; let ind = index">
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" id="getnameC">{{ challenge.challengeName }}</h3>
+      </div>
+      <div class="panel-body">
+            <label>Start date:</label><span id="startdateC">{{ challenge.startdate |date :'fullDate' }}</span><br>
+             <label>End date:</label><span id="enddateC">{{ challenge.endDate |date :'fullDate'}}</span><br>
+             <label>Description:</label><span id="descriptionC">{{ challenge.description }}</span>
+       
+      </div>
+      <div class="panel-footer">
+       
+      </div>
+    </div>
+     
+  </div>
+  </div>

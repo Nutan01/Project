@@ -1,0 +1,30 @@
+.panel-body {
+    min-height: 100px;
+}
+
+.menu_selectedItem {
+   background-color:#dfdfdf;
+}
+
+.menu_hoverItem:hover {
+   background-color:#eeeeee;
+}
+
+.menu_item {
+   padding:12px;
+   border:1px solid #ccc;
+   cursor:pointer;
+}
+
+label {
+  width:200px;
+  display: inline-block;
+    /*display: inline-flex;*/
+     /*display: inline-table;*/
+}
+span {
+  width:800px;
+  /*display: inline-block;*/
+    /*display: inline-flex;*/
+     display: inline-table;
+}

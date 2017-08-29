@@ -1,0 +1,224 @@
+ 
+
+<!--<div class="col-md-6 col-md-offset-3" style="margin-top: 45px; margin-bottom: 80px; color:black">-->
+   <!--<h1>abc</h1>-->
+   <nav class="navbar navbar-default">
+ <div class="row">
+          <!--username-->
+          <h3></h3>
+          <div class="col-sm-10"><h3 ><i id="names">Welcome {{currentUser.name}} !</i></h3>
+          <!--<div class="col-sm-10"><h2><i>Welcome {{currentUser.firstName}}!</i></h2>-->
+          </div>
+          <!--logout-->
+          <div class="col-sm-2">
+          <div *ngIf="showingLogOut"><a [routerLink]="['/login']" (click)="hide()" style="color:black" id="logoutA"><span class="glyphicon glyphicon-log-out"></span>Logout</a> </div>
+          </div>
+      </div>
+</nav>
+
+ <div class="col-sm-12"><h3 class="text-center" id="role"><u>Role - {{currentUser.role}}</u></h3></div>
+  <br>
+  <br>
+  <br>
+   <div class="jumbotron " >
+  <div class="col-sm-12"><h3 class="text-center"><u id='check'>Create Challenge</u></h3></div>
+  <br>
+  <br>
+  <br>
+
+ <!---->
+     <form [formGroup]="userForm" (ngSubmit)="createchallenge(); " class="form-horizontal">
+        <div class="form-group " >
+            <label  class="col-md-4 control-label"  name='challengeName'>Name</label>
+             <input type="text" class="form-control col-md-6" formControlName="challengeName" id="challengeName" [(ngModel)]="challengeModel.challengeName" #challengeName  />
+           <br/><br/><div style="width:200px" class="col-md-4"></div>
+           <!--{{challengeName.className}}-->
+           <div *ngIf="userForm.controls['challengeName'].hasError('required') && userForm.controls['challengeName'].touched" class="alert alert-danger col-md-6">Name is required.</div>
+      
+    </div>
+       
+         <div class="form-group" >
+            <label  class="col-sm-4 control-label">Descrition</label>
+             <input type="text"  class="form-control col-sm-6" formControlName="description" id="description" [(ngModel)]="challengeModel.description" #description  />
+           <br/><br/><div style="width:200px" class="col-md-4"></div>
+           <div *ngIf="userForm.controls['description'].hasError('required') && userForm.controls['description'].touched" class="alert alert-danger col-md-6">Descrition is required.</div>
+            
+                      
+        </div>
+        <div class="form-group " >  
+            <label  class="col-sm-4 control-label">Start Date</label>
+            <div class="sd-container">
+             <input type="date"  class="form-control sd" formControlName="startdate" id="startdate" [(ngModel)]="challengeModel.startdate" #startdate  />
+              <span class="glyphicon glyphicon-calendar open-button" ></span>             
+            </div>
+            <br/><br/><div style="width:200px" class="col-md-4"></div>
+            <div *ngIf="userForm.controls['startdate'].hasError('required') && userForm.controls['startdate'].touched" class="alert alert-danger col-md-6">Start Date is required.</div>            
+        </div>
+        
+           <div class="form-group" >
+            <label  class="col-sm-4 control-label">End Date</label>
+             <div class="sd-container">
+             <input type="date"  class="form-control sd" formControlName="endDate" id="endDate" [(ngModel)]="challengeModel.endDate" #endDate  />
+             <span class="glyphicon glyphicon-calendar open-button"></span>
+             </div>
+            <br/><br/><div style="width:200px" class="col-md-4"></div>
+            <div *ngIf="userForm.controls['endDate'].hasError('required') && userForm.controls['endDate'].touched" class="alert alert-danger col-md-6">End Date is required.</div>                
+        </div>
+
+
+
+        <div class=" form-group">
+          <label class="col-sm-4 control-label">Assign Coordinator</label>
+
+        <select class="form-control sd"  (change)="setClickedRow($event.target.value);" id="select">
+          <option   *ngFor="let co of coordinator; let idx=index"  [disabled]="idx==0" [value]="co.challengeCoordinatorId" id="assigns">{{co.challengeCoordinatorrName}}</option>
+        </select>
+
+       </div>
+   
+       
+        <div class="form-group" style=" text-align: center;">
+            <button class="btn btn-primary" name='create' [disabled]="!userForm.valid" id="create" data-toggle="modal" data-target="#myModal" >Create</button>
+            <!---->
+        </div>     
+                      
+     </form>
+
+     <div id="myModal" class="modal fade" role="dialog" *ngIf="showMsg">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header ">
+       
+        <h4 class="modal-title" style="text-align:center;">Challenge Creation</h4>
+        
+      </div>
+      <div class="modal-body">
+        <div >
+           {{msg}}
+       </div>
+      </div>
+      <div class="modal-footer" >
+      <input type="button" id="btnYes"  data-dismiss="modal" class="btn secondary"  value="Ok" aria-hidden="true" />
+      
+      </div>
+    </div>
+
+  </div>
+</div>
+
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!--<div class="panel-body">
+        <div class="row">
+          
+          <div class="col-md-offset-3"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="#" data-toggle="modal" data-target="#myModal2" style="color:black"><span class="glyphicon glyphicon-plus-sign" style="color:green"></span> Challenges</a>
+          </div>
+      
+        </div>
+      </div>-->
+
+      <!--add Movies-->
+      <!--nested component addmovie-->
+      <!--<div id="myModal2" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+       
+          <div class="modal-content">
+            <div class="modal-header" style="background-color:Silver ">
+            <h4 class="modal-title">Create Challenge Here..!</h4>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">-->
+           <!--<div class="col-md-6 col-md-offset-3">-->
+
+<!-- 
+     <form name="form" (ngSubmit)="f.form.valid && createchallenge() ;  challengeName.value=''; description.value=''; startdate.value=''; endDate.value=''" #f="ngForm" novalidate class="form-horizontal">
+        <div class="form-group " >
+            <label for="challengeName" class="col-md-4 control-label">Name</label>
+             <input type="text" class="form-control col-md-6" name="challengeName" [(ngModel)]="challengeModel.challengeName" #challengeName required />
+           <br/><br/><div style="width:200px" class="col-md-4"></div><div *ngIf="f.controls['challengeName'].hasError('required') && f.controls['challengeName'].touched" class="alert alert-danger col-md-6">Name is required.</div>
+      
+    </div>
+       
+         <div class="form-group" >
+            <label for="description" class="col-sm-4 control-label">Descrition</label>
+             <input type="text"  class="form-control col-sm-6" name="description" [(ngModel)]="challengeModel.description" #description required />
+           <br/><br/><div style="width:200px" class="col-md-4"></div><div *ngIf="f.controls['description'].hasError('required') && f.controls['description'].touched" class="alert alert-danger col-md-6">Descrition is required.</div>
+            
+                      
+        </div>
+        <div class="form-group " >  
+            <label for="startdate" class="col-sm-4 control-label">Start Date</label>
+            <div class="sd-container">
+             <input type="date"  class="form-control sd" name="startdate" [(ngModel)]="challengeModel.startdate" #startdate required />
+              <span class="glyphicon glyphicon-calendar open-button"></span>             
+            </div>
+            <br/><br/><div style="width:200px" class="col-md-4"></div><div *ngIf="f.controls['startdate'].hasError('required') && f.controls['startdate'].touched" class="alert alert-danger col-md-6">Start Date is required.</div>            
+        </div>
+        
+           <div class="form-group" >
+            <label for="endDate" class="col-sm-4 control-label">End Date</label>
+             <div class="sd-container">
+             <input type="date"  class="form-control sd" name="endDate" [(ngModel)]="challengeModel.endDate" #endDate required />
+             <span class="glyphicon glyphicon-calendar open-button"></span>
+             </div>
+            <br/><br/><div style="width:200px" class="col-md-4"></div><div *ngIf="f.controls['endDate'].hasError('required') && f.controls['endDate'].touched" class="alert alert-danger col-md-6">End Date is required.</div>                
+        </div>
+
+
+
+        <div class=" form-group">
+          <label class="col-sm-4 control-label">Assign Coordinator</label>
+
+        <select class="form-control sd"  (change)="setClickedRow($event.target.value);" >
+          <option   *ngFor="let co of coordinator; let idx=index"  [disabled]="idx==0" [value]="co.challengeCoordinatorId" >{{co.challengeCoordinatorrName}}</option>
+        </select>
+
+       </div>
+
+        <div class="form-group" style=" text-align: center;">
+            <button [disabled]="!f.form.valid" class="btn btn-primary"  >Create</button>
+           
+        </div>     
+                      
+     </form>
+
+   </div>-->
+<!--</div>-->
+
+ 
+
+            <!--</div>
+            <div class="modal-footer" style="background-color:Silver ">
+            </div>
+          </div>-->
+
+        <!--</div>-->
+      <!--</div>
+
+
+  
+     </div>-->
+
